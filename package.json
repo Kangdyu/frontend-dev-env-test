@@ -1,0 +1,24 @@
+{
+    "name": "frontend-dev-env-test",
+    "version": "1.0.0",
+    "description": "앞으로 진행할 웹 프로젝트를 위한 프론트엔드 개발 환경 setup 테스트",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kangdyu/frontend-dev-env-test.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Kangdyu/frontend-dev-env-test/issues"
+    },
+    "homepage": "https://github.com/Kangdyu/frontend-dev-env-test#readme",
+    "devDependencies": {
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
+    }
+}
