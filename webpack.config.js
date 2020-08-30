@@ -5,9 +5,13 @@ const childProcess = require("child_process");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssertsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+
+const mode = process.env.NODE_ENV || "development";
 
 module.exports = {
-  mode: "development",
+  mode,
   entry: {
     main: "./src/app.js",
   },
@@ -15,18 +19,40 @@ module.exports = {
     path: path.resolve("./dist"),
     filename: "[name].js",
   },
+  devServer: {
+    overlay: true,
+    stats: "errors-only",
+    // HMR (Hot Module Reloading)
+    hot: true,
+  },
+  optimization: {
+    minimizer:
+      mode === "production"
+        ? [
+            new OptimizeCSSAssertsPlugin(),
+            new TerserPlugin({
+              terserOptions: {
+                compress: {
+                  drop_console: true,
+                },
+              },
+            }),
+          ]
+        : [],
+  },
   // 로더는 module에 넣음
   // 로더는 각 파일에 대해서 실행
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.(s[ac]ss|css)$/,
         // 순서: 뒤에서 앞으로
         use: [
           process.env.NODE_ENV === "production"
             ? MiniCssExtractPlugin.loader
             : "style-loader",
           "css-loader",
+          "sass-loader",
         ],
       },
       {

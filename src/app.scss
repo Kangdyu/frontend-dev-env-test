@@ -1,0 +1,9 @@
+@import "variables";
+
+body {
+    background-image: url("bg.png");
+}
+
+h1 {
+    color: $color;
+}
